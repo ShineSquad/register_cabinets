@@ -1,0 +1,37 @@
+ <div class='left-block'>
+  <table border='1' class='po-table'>
+    <tr>
+      <td>№</td>
+      <td>Номер</td>
+      <td>Корпус</td>
+      <td>Количество мест</td>
+      <td>Доска</td>
+      <td>Место преподавателя</td>
+    </tr>
+    <tr style='display: none;'>
+      <td>[[--count--]]</td>
+      <td>[[--number--]]</td>
+      <td>[[--housing--]]</td>
+      <td>[[--number_seats--]]</td>
+      <td>[[--board--]]</td>
+      <td>[[--workplace--]]</td>
+    </tr>
+  </table>
+</div>
+<div class='right-block'>
+  <form class='po-form'>
+    <p class='form-title'>Добавить кабинет</p>
+    <input type='text' name='number' placeholder='Номер'>
+    <input type='text' name='housing' placeholder='Корпус'>
+    <input type='text' name='number_seats' placeholder='Количество посадочных мест'>
+    <div class='license'>
+      <input type='checkbox' name='workplace'>
+      <p>Рабочее место преподавателя</p>
+    </div>
+    <div class='license'>
+      <input type='checkbox' name='board'>
+      <p>Доска</p>
+    </div>
+    <input type='button' value='Добавить' onclick='addСabinet()'>
+  </form>
+</div>
