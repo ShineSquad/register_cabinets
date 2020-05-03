@@ -129,7 +129,7 @@
 #app .main .container-reports input[type="button"] {
   cursor: pointer;
   position: absolute;
-  height: 40px;
+  height: 60px;
   width: 25%;
   bottom: 40px;
   border: none;
