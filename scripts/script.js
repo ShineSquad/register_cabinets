@@ -77,7 +77,7 @@ const Software = {
           </table>
         </div>
         <div class='right-block'>
-          <form class='po-form' onsubmit="return false;">
+          <form class='po-form' onsubmit='addSoftware(); return false;' id='softwareForm'>
             <p class='form-title'>Добавить программное обеспечение</p>
             <input type='text' name='name' placeholder='Имя'>
             <input type='text' name='full_name' placeholder='Полное наименование'>
@@ -124,7 +124,7 @@ const Cabinets = {
           </table>
         </div>
         <div class='right-block'>
-          <form class='po-form' onsubmit="return false;">
+          <form class='po-form' onsubmit='return false;' id='cabinetsForm'>
             <p class='form-title'>Добавить кабинет</p>
             <input type='text' name='number' placeholder='Номер'>
             <input type='text' name='housing' placeholder='Корпус'>
@@ -160,7 +160,7 @@ const Subjects = {
         </table>
       </div>
       <div class='right-block'>
-        <form class='po-form' onsubmit="return false;">
+        <form class='po-form' onsubmit='return false;' id='subjectsForm'>
           <p class='form-title'>Добавить предмет</p>
           <input type='text' name='title' placeholder='Название'>
           <input type='button' value='Добавить' onclick='addSubjects()'>
@@ -173,7 +173,7 @@ const Reports = {
   template:
   `
     <div>
-      <form class='container-reports' onsubmit="return false;">
+      <form class='container-reports' onsubmit='return false;' id='reportsForm'>
         <select class='' name='subject'>
           <option disabled selected>Предмет</option>
           <option>1</option>
@@ -218,15 +218,45 @@ function change() {
 }
 
 function addSoftware() {
-  console.log(1);
+  let tmp = new FormData(document.getElementById("softwareForm")),
+			data = {},
+			onSend = true;
+
+		tmp.forEach(function(value, key){
+			if (value.length < 5) {
+				onSend = false;
+			}
+		    data[key] = value;
+		});
+  console.log(data);
 }
 
 function addСabinet() {
-  console.log(1);
+  let tmp = new FormData(document.getElementById("cabinetsForm")),
+			data = {},
+			onSend = true;
+
+		tmp.forEach(function(value, key){
+			if (value.length < 5) {
+				onSend = false;
+			}
+		    data[key] = value;
+		});
+  console.log(data);
 }
 
 function addSubjects() {
-  console.log(1);
+  let tmp = new FormData(document.getElementById("subjectsForm")),
+			data = {},
+			onSend = true;
+
+		tmp.forEach(function(value, key){
+			if (value.length < 5) {
+				onSend = false;
+			}
+		    data[key] = value;
+		});
+  console.log(data);
 }
 
 function createReport() {
