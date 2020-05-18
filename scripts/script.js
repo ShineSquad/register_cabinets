@@ -14,6 +14,7 @@ window.onload = function() {
   getSoftware();
   getCabinet();
   getSubjects();
+  getDataReport();
 }
 
 const Software = {
@@ -117,22 +118,16 @@ const Reports = {
   `
     <div>
       <form class='container-reports' onsubmit='return false;' id='reportsForm'>
-        <select class='' name='subject'>
+        <select class='' name='subject' id='selectSubject'>
           <option disabled selected>Предмет</option>
-          <option>1</option>
-          <option>2</option>
         </select>
-        <select class='' name='cabinet'>
+        <select class='' name='cabinet' id='selectCabinet'>
           <option disabled selected>Кабинет</option>
-          <option>1</option>
-          <option>2</option>
         </select>
-        <select class='' name='software'>
+        <select class='' name='software' id='selectSoftware'>
           <option disabled selected>Программное обеспечение</option>
-          <option>1</option>
-          <option>2</option>
         </select>
-        <input type='button' value='Сформировать' onclick='createReport()'>
+        <input type='button' value='Сформировать' name='test' id='test'>
       </form>
     </div>
   `
@@ -323,6 +318,35 @@ function getSubjects() {
     })
 }
 
-function createReport() {
-  console.log(1);
+function getDataReport() {
+  firebase.database().ref('subject').once('value', (val) => {
+      subject = val.val();
+      for (i in subject) {
+        let ev = subject[i];
+        var option = document.createElement('option'),
+            selectSubject = document.getElementById('selectSubject');
+        selectSubject.appendChild(option);
+        option.innerText = ev.title;
+      }
+    })
+  firebase.database().ref('cabinet').once('value', (val) => {
+      cabinet = val.val();
+      for (i in cabinet) {
+        let ev = cabinet[i];
+        var option = document.createElement('option'),
+            selectCabinet = document.getElementById('selectCabinet');
+        selectCabinet.appendChild(option);
+        option.innerText = ev.number;
+      }
+    })
+  firebase.database().ref('software').once('value', (val) => {
+      software = val.val();
+      for (i in software) {
+        let ev = software[i];
+        var option = document.createElement('option'),
+            selectSoftware = document.getElementById('selectSoftware');
+        selectSoftware.appendChild(option);
+        option.innerText = ev.name;
+      }
+    })
 }
