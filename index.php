@@ -52,10 +52,17 @@
       $properties->setSubject('My subject');
       $properties->setKeywords('my, key, word');
 
-      $section = $phpWord -> addSection();
+      $sectionStyle = array(
+        'orientation' => 'landscape',
+      );
 
-      $section -> addText('Learn from yesterday, live for today, hope for tomorrow.');
+      $section = $phpWord -> addSection($sectionStyle);
 
+      $section -> addText('Нижнетагильский государственный социально-педагогический институт (филиал) федерального государственного автономного образовательного учреждения высшего образования «Российский государственный профессионально-педагогический университет»');
+
+      $section -> addText('Справка');
+
+      $section -> addText('о материально-техническом обеспечении основной образовательной программы высшего образования - программы бакалавриата 09.03.03 Прикладная информатика, профиль «Прикладная информатика в экономике», набор 2018 г.');
 
       $styleTable = array('borderSize' => 6, 'borderColor' => '999999');
       $cellRowSpan = array('vMerge' => 'restart', 'valign' => 'center');
@@ -69,10 +76,31 @@
       $phpWord->addTableStyle('Colspan Rowspan', $styleTable);
       $table = $section->addTable('Colspan Rowspan');
       $table->addRow(null, array('tblHeader' => true));
-      $table->addCell(2000, $cellVCentered)->addText('A', array('bold' => true), $cellHCentered);
-      $table->addCell(2000, $cellVCentered)->addText('B', array('bold' => true), $cellHCentered);
-      $table->addCell(2000, $cellVCentered)->addText('C', array('bold' => true), $cellHCentered);
-      $table->addCell(2000, $cellColSpan2)->addText('D', array('bold' => true), $cellHCentered);
+      $table->addCell(2000, $cellVCentered)->addText(
+        '№ п\п', 
+        array('bold' => true), 
+        $cellHCentered
+      );
+      $table->addCell(2000, $cellVCentered)->addText(
+        'Наименование дисциплины (модуля), практик в соответсвии с учебным планом', 
+        array('bold' => true), 
+        $cellHCentered
+      );
+      $table->addCell(2000, $cellVCentered)->addText(
+        'Наименование специальных* помещений и помещений для самостоятельной работы', 
+        array('bold' => true), 
+        $cellHCentered
+      );
+      $table->addCell(2000, $cellColSpan2)->addText(
+        'Оснащенность спецальных помещений и помещений для самостоятельной работы', 
+        array('bold' => true), 
+        $cellHCentered
+      );
+      $table->addCell(2000, $cellColSpan2)->addText(
+        'Перечень лицензионного программного обеспечения. Реквизиты подтверждающего документа', 
+        array('bold' => true), 
+        $cellHCentered
+      );
        
       $table->addRow();
       $table->addCell(2000, $cellVCentered)->addText('E', null, $cellHCentered);
