@@ -55,58 +55,62 @@
       $sectionStyle = array(
         'orientation' => 'landscape',
       );
+      $cellHCentered = array(
+        'align' => 'center'
+      );
+      $cellVCentered = array(
+        'valign' => 'center'
+      );
+      $styleTable = array(
+        'borderSize' => 6, 
+        'borderColor' => '999999',
+      );
 
       $section = $phpWord -> addSection($sectionStyle);
 
-      $section -> addText('Нижнетагильский государственный социально-педагогический институт (филиал) федерального государственного автономного образовательного учреждения высшего образования «Российский государственный профессионально-педагогический университет»');
+      $section -> addText('Нижнетагильский государственный социально-педагогический институт (филиал) федерального государственного автономного образовательного учреждения высшего образования «Российский государственный профессионально-педагогический университет»', array(), $cellHCentered);
 
-      $section -> addText('Справка');
+      $section -> addText('Справка', array('bold' => true), $cellHCentered);
 
-      $section -> addText('о материально-техническом обеспечении основной образовательной программы высшего образования - программы бакалавриата 09.03.03 Прикладная информатика, профиль «Прикладная информатика в экономике», набор 2018 г.');
+      $year = date('Y');
+      $text = 'о материально-техническом обеспечении основной образовательной программы высшего образования - программы бакалавриата 09.03.03 Прикладная информатика, профиль «Прикладная информатика в экономике», набор ' . $year;
+      $section -> addText(htmlspecialchars($text), array('marginBottom' => 400), $cellHCentered);
 
-      $styleTable = array('borderSize' => 6, 'borderColor' => '999999');
-      $cellRowSpan = array('vMerge' => 'restart', 'valign' => 'center');
-      $cellRowContinue = array('vMerge' => 'continue');
-      $cellColSpan2 = array('valign' => 'center');
-      $cellColSpan3 = array('valign' => 'center');
-       
-      $cellHCentered = array('align' => 'center');
-      $cellVCentered = array('valign' => 'center');
- 
       $phpWord->addTableStyle('Colspan Rowspan', $styleTable);
       $table = $section->addTable('Colspan Rowspan');
       $table->addRow(null, array('tblHeader' => true));
-      $table->addCell(2000, $cellVCentered)->addText(
+      $table->addCell(3000, $cellVCentered)->addText(
         '№ п\п', 
         array('bold' => true), 
         $cellHCentered
       );
-      $table->addCell(2000, $cellVCentered)->addText(
+      $table->addCell(3000, $cellVCentered) -> addText(
         'Наименование дисциплины (модуля), практик в соответсвии с учебным планом', 
         array('bold' => true), 
         $cellHCentered
       );
-      $table->addCell(2000, $cellVCentered)->addText(
+      $table->addCell(3000, $cellVCentered) -> addText(
         'Наименование специальных* помещений и помещений для самостоятельной работы', 
         array('bold' => true), 
         $cellHCentered
       );
-      $table->addCell(2000, $cellColSpan2)->addText(
+      $table->addCell(3000, $cellVCentered) -> addText(
         'Оснащенность спецальных помещений и помещений для самостоятельной работы', 
         array('bold' => true), 
         $cellHCentered
       );
-      $table->addCell(2000, $cellColSpan2)->addText(
+      $table->addCell(3000, $cellVCentered) -> addText(
         'Перечень лицензионного программного обеспечения. Реквизиты подтверждающего документа', 
         array('bold' => true), 
         $cellHCentered
       );
        
       $table->addRow();
-      $table->addCell(2000, $cellVCentered)->addText('E', null, $cellHCentered);
-      $table->addCell(2000, $cellVCentered)->addText('E', null, $cellHCentered);
-      $table->addCell(2000, $cellVCentered)->addText('Т', null, $cellHCentered);
-      $table->addCell(2000, $cellVCentered)->addText('E', null, $cellHCentered);
+      $table->addCell(3000, $cellVCentered) -> addText('E', null, $cellHCentered);
+      $table->addCell(3000, $cellVCentered) -> addText('E', null, $cellHCentered);
+      $table->addCell(3000, $cellVCentered) -> addText('Т', null, $cellHCentered);
+      $table->addCell(3000, $cellVCentered) -> addText('E', null, $cellHCentered);
+      $table->addCell(3000, $cellVCentered) -> addText('E', null, $cellHCentered);
 
       $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
       $objWriter -> save('./documents/doc.docx');
