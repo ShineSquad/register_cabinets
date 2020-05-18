@@ -97,7 +97,7 @@
   font-size: 16px;
 }
 
-#app .main .right-block .po-form input[type="button"]:hover, #app .main .container-reports input[type="button"]:hover {
+#app .main .right-block .po-form input[type="button"]:hover, #app .main .container-reports input[type="submit"]:hover {
   background-color: #8886ff;
 }
 
@@ -129,7 +129,7 @@
   font-size: 16px;
 }
 
-#app .main .container-reports input[type="button"] {
+#app .main .container-reports input[type="submit"] {
   cursor: pointer;
   position: absolute;
   height: 60px;

@@ -1,0 +1,33 @@
+<div class="main">
+  <div class='left-block'>
+    <table border='1' class='po-table' id='software-table'>
+      <tr>
+        <td>№</td>
+        <td>Имя</td>
+        <td>Полное название</td>
+        <td>Версия</td>
+        <td>Лицензия</td>
+      </tr>
+    </table>
+  </div>
+  <div class='right-block'>
+    <form class='po-form' onsubmit='addSoftware(); return false;' id='softwareForm'>
+      <p class='form-title'>Добавить программное обеспечение</p>
+      <input type='text' name='name' placeholder='Имя'>
+      <input type='text' name='full_name' placeholder='Полное наименование'>
+      <input type='text' name='version' placeholder='Версия'>
+      <input type='text' name='license' placeholder='Лицензия'>
+      <div class='license'>
+        <input type='checkbox' onchange='change()' id='cb'>
+        <p>Сроки лицензии</p>
+      </div>
+      <div class='license-date' id='hide' style='display: none;'>
+        <p>с</p>
+        <input type='date' name='time_start'>
+        <p>по</p>
+        <input type='date' name='time_end'>
+      </div>
+      <input type='button' value='Добавить' onclick='addSoftware()'>
+    </form>
+  </div>
+</div>
