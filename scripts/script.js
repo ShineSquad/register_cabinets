@@ -1,45 +1,3 @@
-/**
-  Software:
-    form:
-      count(возрастание)
-      name
-      full_name
-      version
-      license
-      time_start
-      time_end
-    table:
-      [[--count--]]
-      [[--name--]]
-      [[--full_name--]]
-      [[--version--]]
-      [[--license--]]
-
-  Сabinet:
-    form:
-      count(возрастание)
-      number
-      housing
-      number_seats
-      workplace
-      board
-    table:
-      [[--count--]]
-      [[--number--]]
-      [[--housing--]]
-      [[--number_seats--]]
-      [[--workplace--]]
-      [[--board--]]
-
-    Subjects:
-      form:
-        count(возрастание)
-        title
-      table:
-        [[--count--]]
-        [[--title--]]
-**/
-
 window.onload = function() {
   var firebaseConfig = {
     apiKey: "AIzaSyDCqEaGyOikDZEihTCzTVPZS2c5IvIE5aU",
@@ -52,6 +10,10 @@ window.onload = function() {
   };
 
   firebase.initializeApp(firebaseConfig);
+
+  getSoftware();
+  getCabinet();
+  getSubjects();
 }
 
 const Software = {
@@ -59,20 +21,13 @@ const Software = {
     `
       <div>
         <div class='left-block'>
-          <table border='1' class='po-table'>
+          <table border='1' class='po-table' id='software-table'>
             <tr>
               <td>№</td>
               <td>Имя</td>
               <td>Полное название</td>
               <td>Версия</td>
               <td>Лицензия</td>
-            </tr>
-            <tr style='display: none;'>
-              <td>[[--count--]]</td>
-              <td>[[--name--]]</td>
-              <td>[[--full_name--]]</td>
-              <td>[[--version--]]</td>
-              <td>[[--license--]]</td>
             </tr>
           </table>
         </div>
@@ -104,7 +59,7 @@ const Cabinets = {
     `
       <div>
         <div class='left-block'>
-          <table border='1' class='po-table'>
+          <table border='1' class='po-table' id='cabinet-table'>
             <tr>
               <td>№</td>
               <td>Номер</td>
@@ -112,14 +67,6 @@ const Cabinets = {
               <td>Количество мест</td>
               <td>Доска</td>
               <td>Место преподавателя</td>
-            </tr>
-            <tr style='display: none;'>
-              <td>[[--count--]]</td>
-              <td>[[--number--]]</td>
-              <td>[[--housing--]]</td>
-              <td>[[--number_seats--]]</td>
-              <td>[[--board--]]</td>
-              <td>[[--workplace--]]</td>
             </tr>
           </table>
         </div>
@@ -130,11 +77,11 @@ const Cabinets = {
             <input type='text' name='housing' placeholder='Корпус'>
             <input type='text' name='number_seats' placeholder='Количество посадочных мест'>
             <div class='license'>
-              <input type='checkbox' name='workplace'>
+              <input type='checkbox' name='workplace' id='workplace-check' value='0'>
               <p>Рабочее место преподавателя</p>
             </div>
             <div class='license'>
-              <input type='checkbox' name='board'>
+              <input type='checkbox' name='board' id='board-check' value='0'>
               <p>Доска</p>
             </div>
             <input type='button' value='Добавить' onclick='addСabinet()'>
@@ -148,14 +95,10 @@ const Subjects = {
   `
     <div>
       <div class='left-block'>
-        <table border='1' class='po-table'>
+        <table border='1' class='po-table' id='subject-table'>
           <tr>
             <td>№</td>
             <td>Название</td>
-          </tr>
-          <tr style='display: none;'>
-            <td>[[--count--]]</td>
-            <td>[[--title--]]</td>
           </tr>
         </table>
       </div>
@@ -217,18 +160,66 @@ function change() {
   }
 }
 
+$('#workplace-check').change(function() {
+    $(this).val($(this).prop('checked')?1:0);
+});
+
+$('#board-check').change(function() {
+    $(this).val($(this).prop('checked')?1:0);
+});
+
 function addSoftware() {
   let tmp = new FormData(document.getElementById("softwareForm")),
 			data = {},
 			onSend = true;
 
-		tmp.forEach(function(value, key){
-			if (value.length < 5) {
-				onSend = false;
-			}
-		    data[key] = value;
-		});
-  console.log(data);
+	tmp.forEach(function(value, key){
+		if (value.length < 5) {
+			onSend = false;
+		}
+	    data[key] = value;
+	});
+
+  let getLast = firebase.database().ref('software').limitToLast(1);
+  getLast.once("value", function(resp){
+    let lastID = (resp.val() === null) ? -1 : +Object.keys(resp.val())[0];
+    pushItem(lastID + 1)
+  });
+
+  function pushItem(ID) {
+    firebase.database().ref('software/').child(ID).set({
+      id: ID,
+      name: data.name,
+      full_name: data.full_name,
+      version: data.version,
+      license: data.license,
+      time_start: data.time_start,
+      time_end: data.time_end,
+    });
+  };
+}
+
+function getSoftware() {
+    firebase.database().ref('software').once('value', (val) => {
+      software = val.val();
+      for (i in software) {
+        let ev = software[i];
+        var tr = document.createElement('tr'),
+            td1 = document.createElement('td'),
+            td2 = document.createElement('td'),
+            td3 = document.createElement('td'),
+            td4 = document.createElement('td'),
+            td5 = document.createElement('td'),
+            softwareTable = document.getElementById('software-table');
+        tr.append(td1, td2, td3, td4, td5);
+        softwareTable.appendChild(tr);
+        td1.innerText = ev.id;
+        td2.innerText = ev.name;
+        td3.innerText = ev.full_name;
+        td4.innerText = ev.version;
+        td5.innerText = ev.license;
+      }
+    })
 }
 
 function addСabinet() {
@@ -236,13 +227,57 @@ function addСabinet() {
 			data = {},
 			onSend = true;
 
-		tmp.forEach(function(value, key){
-			if (value.length < 5) {
-				onSend = false;
-			}
-		    data[key] = value;
-		});
-  console.log(data);
+	tmp.forEach(function(value, key){
+		if (value.length < 5) {
+			onSend = false;
+		}
+	    data[key] = value;
+      console.log(data)
+	});
+  
+  let getLast = firebase.database().ref('cabinet').limitToLast(1);
+  getLast.once("value", function(resp){
+    let lastID = (resp.val() === null) ? -1 : +Object.keys(resp.val())[0];
+    pushItem(lastID + 1)
+  });
+  let workplaceCheck = document.getElementById('workplace-check').value;
+  let boardCheck = document.getElementById('board-check').value;
+
+  function pushItem(ID) {
+    firebase.database().ref('cabinet/').child(ID).set({
+      id: ID,
+      number: data.number,
+      housing: data.housing,
+      number_seats: data.number_seats,
+      workplace: workplaceCheck,
+      board: boardCheck,
+    });
+  }
+}
+
+function getCabinet() {
+    firebase.database().ref('cabinet').once('value', (val) => {
+      cabinet = val.val();
+      for (i in cabinet) {
+        let ev = cabinet[i];
+        var tr = document.createElement('tr'),
+            td1 = document.createElement('td'),
+            td2 = document.createElement('td'),
+            td3 = document.createElement('td'),
+            td4 = document.createElement('td'),
+            td5 = document.createElement('td'),
+            td6 = document.createElement('td'),
+            cabinetTable = document.getElementById('cabinet-table');
+        tr.append(td1, td2, td3, td4, td5, td6);
+        cabinetTable.appendChild(tr);
+        td1.innerText = ev.id;
+        td2.innerText = ev.number;
+        td3.innerText = ev.housing;
+        td4.innerText = ev.number_seats;
+        td5.innerText = ev.board;
+        td6.innerText = ev.workplace;
+      }
+    })
 }
 
 function addSubjects() {
@@ -250,13 +285,42 @@ function addSubjects() {
 			data = {},
 			onSend = true;
 
-		tmp.forEach(function(value, key){
-			if (value.length < 5) {
-				onSend = false;
-			}
-		    data[key] = value;
-		});
-  console.log(data);
+	tmp.forEach(function(value, key){
+		if (value.length < 5) {
+			onSend = false;
+		}
+	    data[key] = value;
+	});
+ 
+  let getLast = firebase.database().ref('subject').limitToLast(1);
+  getLast.once("value", function(resp){
+    let lastID = (resp.val() === null) ? -1 : +Object.keys(resp.val())[0];
+    pushItem(lastID + 1)
+  });
+
+  function pushItem(ID) {
+    firebase.database().ref('subject/').child(ID).set({
+      id: ID,
+      title: data.title,
+    });
+  }
+}
+
+function getSubjects() {
+    firebase.database().ref('subject').once('value', (val) => {
+      subject = val.val();
+      for (i in subject) {
+        let ev = subject[i];
+        var tr = document.createElement('tr'),
+            td1 = document.createElement('td'),
+            td2 = document.createElement('td'),
+            subjectTable = document.getElementById('subject-table');
+        tr.append(td1, td2);
+        subjectTable.appendChild(tr);
+        td1.innerText = ev.id;
+        td2.innerText = ev.title;
+      }
+    })
 }
 
 function createReport() {
