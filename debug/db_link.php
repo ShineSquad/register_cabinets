@@ -12,4 +12,5 @@ if (!$link) {
     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
     exit;
 }
+mysqli_set_charset($link, "utf8");
 ?>

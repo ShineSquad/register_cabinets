@@ -166,8 +166,4 @@ require "db_link.php";
 foreach ($tables as $key => $value) {
 	JSONtoTABLE($link, $value);
 }
-//JSONtoTABLE($link, $users);
-//JSONtoTABLE($link, $sessions);
-//JSONtoTABLE($link, $articles);
-//JSONtoTABLE($link, $leaderboard);
 ?>
