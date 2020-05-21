@@ -55,10 +55,6 @@
   padding: 10px 0;
 }
 
-#app .main .right-block .po-form .license *, #app .main .right-block .po-form .license-date * {
-  display: inline-block;
-}
-
 #app .main .right-block .po-form .license-date p {
   margin: 4%;
   font-size: 16px;
@@ -73,17 +69,33 @@
   margin: 10px 0;
 }
 
-#app .main .right-block .po-form input[type="text"] {
+#app .main .right-block .po-form select {
+  margin: 5px 0;
   width: 90%;
+  height: 40px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding-left: 20px;
+}
+
+#app .main .right-block .po-form input[type="checkbox"] {
+  margin: 5px;
+}
+
+#app .main .right-block .po-form input[type="text"], #app .main .right-block .po-form input[type="number"] {
   margin-left: 5%;
   border: none;
   height: 40px;
   margin: 5px;
   outline: none;
   color: black;
+  padding-left: 20px;
+  width: calc(90% - 20px);
+  font-size: 16px;
 }
 
-#app .main .right-block .po-form input[type="button"] {
+#app .main .right-block .po-form input[type="submit"] {
   background-color: #6E6BFF;
   cursor: pointer;
   position: absolute;
@@ -97,18 +109,16 @@
   font-size: 16px;
 }
 
-#app .main .right-block .po-form input[type="button"]:hover, #app .main .container-reports input[type="submit"]:hover {
+#app .main .right-block .po-form input[type="radio"] {
+  margin: 10px;
+}
+
+#app .main .right-block .po-form input[type="submit"]:hover, #app .main .container-reports input[type="submit"]:hover {
   background-color: #8886ff;
 }
 
 #app .main .right-block .po-form input[type="text"]::placeholder {
   color: black;
-}
-
-#app .main .right-block .po-form input[type="text"] {
-  padding-left: 20px;
-  width: calc(90% - 20px);
-  font-size: 16px;
 }
 
 #app .main .container-reports {
@@ -138,4 +148,66 @@
   border: none;
   background-color: #6E6BFF;
   font-size: 16px;
+}
+
+#open_license:checked ~ #license{
+  display: block;
+}
+
+#license {
+  display: none;
+}
+
+#unlim {
+  margin-left: 10%;
+  margin-right: 5px;
+}
+
+#unlim:checked ~ #unlim_on {
+  display: none;
+}
+
+.file-block, .custom-input {
+  margin-top: 10px;
+}
+
+.custom-input .btn-tertiary{
+  color:#555;
+  padding:0;
+  line-height:40px;
+  width:300px;
+  margin:auto;
+  display:block;
+  border:2px solid #555
+}
+
+.custom-input .btn-tertiary:hover,.example-2 .btn-tertiary:focus{
+  color:#888;
+  border-color:#888
+}
+
+.custom-input .input-file{
+  width:.1px;
+  height:.1px;
+  opacity:0;
+  overflow:hidden;
+  position:absolute;
+  z-index:-1
+}
+
+.custom-input .input-file + .js-labelFile{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  padding:0 10px;
+  cursor:pointer
+}
+
+.custom-input .input-file + .js-labelFile .icon:before{
+  content:"\f093"
+}
+
+.custom-input .input-file + .js-labelFile.has-file .icon:before{
+  content:"\f00c";
+  color:#5AAC7B
 }
