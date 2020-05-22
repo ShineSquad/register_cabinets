@@ -1,3 +1,41 @@
+<?php
+	require "debug/sql_functions.php";
+	require "debug/db_link.php";
+
+	if (isset($_GET["add_cabinet"])) {
+		$request = '{
+			"id": "NULL",
+			"name": "'      .$_GET["name"]     .'",
+			"number": "'    .$_GET["number"]   .'",
+			"corpus_id": "' .$_GET["corpus_id"].'",
+			"type": "'      .$_GET["type"]     .'",
+			"sit_place": "' .$_GET["sit_count"].'",
+			"workplaces": "'.$_GET["workplaces"].'",
+		';
+
+		$lector_wp   = 0;
+		$whiteboard  = 0;
+		$proector    = 0;
+		$interactive = 0;
+		
+		if (isset($_GET["lector_wp"]))   $lector_wp   = 1;
+		if (isset($_GET["whiteboard"]))  $whiteboard  = 1;
+		if (isset($_GET["proector"]))    $proector    = 1;
+		if (isset($_GET["interactive"])) $interactive = 1;
+		
+		$request .= '
+			"lector_wp": "'  .$lector_wp.'",
+			"whiteboard": "' .$whiteboard.'",
+			"proector": "'   .$proector.'",
+			"interactive": "'.$interactive.'"
+		}';
+
+		insert_into($link, "cabinets", $request);
+
+		header("Location: cabinetPage.php");
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 	<?php require "components/head.htm";?>
@@ -7,14 +45,43 @@
 			<div class="main">
 			  <div class='left-block'>
 			    <table border='1' class='po-table'>
-			      <tr>
-			        <td>№</td>
-			        <td>Номер</td>
-			        <td>Корпус</td>
-			        <td>Количество мест</td>
-			        <td>Доска</td>
-			        <td>Место преподавателя</td>
-			      </tr>
+			     	<tr>
+			        	<td>№</td>
+			        	<td>Номер</td>
+			        	<td>Корпус</td>
+			        	<td>Количество посадочных мест</td>
+			        	<td>Количество рабочих мест</td>
+			        	<td>Имеющееся оборудование</td>
+			      	</tr>
+			      <?php
+						$sql = "SELECT * FROM cabinets";
+						$result = mysqli_query($link, $sql);
+						while ($row = mysqli_fetch_assoc($result)) {
+							$id = $row['id'];
+							$number = $row['number'];
+							$corpus_id = $row['corpus_id'];
+							$sit_place = $row['sit_place'];
+							$workplaces = $row['workplaces'];
+
+							$lector_wp = $row['lector_wp'];
+							$whiteboard = $row['whiteboard'];
+							$proector = $row['proector'];
+							$interactive = $row['interactive'];
+							echo "<tr>";
+								echo "<td>$id</td>";
+								echo "<td>$number</td>";
+								echo "<td>$corpus_id</td>";
+								echo "<td>$sit_place</td>";
+								echo "<td>$workplaces</td>";
+								echo "<td>
+										<p>Рабочее место преподавателя: $lector_wp</p>
+										<p>Маркерная доска: $whiteboard</p>
+										<p>Проекционное оборудование: $proector</p>
+										<p>Интерактивная доска: $interactive</p>
+									  </td>";
+							echo "</tr>";
+					    }
+					?>
 			    </table>
 			  </div>
 			  <div class='right-block'>
@@ -53,41 +120,3 @@
 		</div>
 	</body>
 </html>
-
-<?php
-	require "debug/sql_functions.php";
-	require "debug/db_link.php";
-
-	if (isset($_GET["add_cabinet"])) {
-		$request = '{
-			"id": "NULL",
-			"name": "'      .$_GET["name"]     .'",
-			"number": "'    .$_GET["number"]   .'",
-			"corpus_id": "' .$_GET["corpus_id"].'",
-			"type": "'      .$_GET["type"]     .'",
-			"sit_place": "' .$_GET["sit_count"].'",
-			"workplaces": "'.$_GET["workplaces"].'",
-		';
-
-		$lector_wp   = 0;
-		$whiteboard  = 0;
-		$proector    = 0;
-		$interactive = 0;
-		
-		if (isset($_GET["lector_wp"]))   $lector_wp   = 1;
-		if (isset($_GET["whiteboard"]))  $whiteboard  = 1;
-		if (isset($_GET["proector"]))    $proector    = 1;
-		if (isset($_GET["interactive"])) $interactive = 1;
-		
-		$request .= '
-			"lector_wp": "'  .$lector_wp.'",
-			"whiteboard": "' .$whiteboard.'",
-			"proector": "'   .$proector.'",
-			"interactive": "'.$interactive.'"
-		}';
-
-		insert_into($link, "cabinets", $request);
-
-		header("Location: cabinetPage.php");
-	}
-?>

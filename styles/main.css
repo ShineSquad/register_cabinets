@@ -167,6 +167,8 @@
   display: none;
 }
 
+/*input-file*/
+
 .file-block, .custom-input {
   margin-top: 10px;
 }
@@ -211,3 +213,5 @@
   content:"\f00c";
   color:#5AAC7B
 }
+
+/**/

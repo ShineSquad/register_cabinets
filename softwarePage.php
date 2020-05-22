@@ -1,60 +1,3 @@
-<!DOCTYPE html>
-<html>
-	<?php require "components/head.htm";?>
-	<body>
-		<div id="app">
-			<?php require "components/header-software.htm";?>
-			<div class="main">
-			  <div class='left-block'>
-			    <table border='1' class='po-table'>
-			      <tr>
-			        <td>№</td>
-			        <td>Название ПО</td>
-			        <td>Версия</td>
-			        <td>Название лицензии</td>
-			        <td>Номер договора</td>
-			      </tr>
-			    </table>
-			  </div>
-			  <div class='right-block'>
-			    <form class='po-form' method="POST" enctype="multipart/form-data">
-			      	<p class='form-title'>Добавить программное обеспечение</p>
-			      	<input type="text" name="name" placeholder="Название ПО"><br>
-					<input type="text" name="ver" placeholder="Версия"><br>
-					<input type="radio" name="type" value="free" checked="true">Свободное 
-					<input type="radio" name="type" value="pay" id="open_license">Платное<br>
-					<div id="license">
-						<input type="text" name="l_name" placeholder="Название лицензии"><br>
-						Срок действия лицензии:<br>
-						<div class="license-date">
-							с: <input type="date" name="start_at"> 
-							<input type="checkbox" name="unlim" id="unlim">бессрочно<br>
-							<div id="unlim_on">
-								по: <input type="date" name="end_at">
-							</div>
-						</div>
-						<input type="text" name="doc_num"  placeholder="Номер договора"><br>
-						<div class="file-block">
-							Файл договора:<br>
-							<div class="custom-input">
-								<div class="form-group">
-								    <input type="file" name="doc_link" id="file" class="input-file">
-								    <label for="file" class="btn btn-tertiary js-labelFile">
-								      	<i class="icon fa fa-check"></i>
-								      	<span class="js-fileName">Загрузить файл</span>
-								    </label>
-								</div>
-							</div>
-						</div>
-					</div>
-			      	<input type="submit" name="add_software" value="Добавить ПО">
-			    </form>
-			  </div>
-			</div>
-		</div>
-	</body>
-</html>
-
 <?php
 	require "debug/sql_functions.php";
 	require "debug/db_link.php";
@@ -105,3 +48,79 @@
 		header("Location: softwarePage.php");
 	}
 ?>
+
+<!DOCTYPE html>
+<html>
+	<?php require "components/head.htm";?>
+	<body>
+		<div id="app">
+			<?php require "components/header-software.htm";?>
+			<div class="main">
+			  <div class='left-block'>
+			    <table border='1' class='po-table'>
+				    <tr>
+				      	<td>№</td>
+				        <td>Название ПО</td>
+				        <td>Версия</td>
+				        <td>Тип</td>
+				        <td>Название лицензии</td>
+				        <td>Номер договора</td>
+				    </tr>
+			      	<?php
+						$sql = "SELECT * FROM software";
+						$result = mysqli_query($link, $sql);
+						while ($row = mysqli_fetch_assoc($result)) {
+							$id = $row['id'];
+							$name = $row['name'];	
+							$version = $row['version'];
+							$type = $row['type'];
+							echo "<tr>";
+								echo "<td>$id</td>";
+								echo "<td>$name</td>";
+								echo "<td>$version</td>";
+								echo "<td>$type</td>";
+								echo "<td></td>";
+								echo "<td></td>";
+							echo "</tr>";
+					    }
+					?>
+			    </table>
+			  </div>
+			  <div class='right-block'>
+			    <form class='po-form' method="POST" enctype="multipart/form-data">
+			      	<p class='form-title'>Добавить программное обеспечение</p>
+			      	<input type="text" name="name" placeholder="Название ПО"><br>
+					<input type="text" name="ver" placeholder="Версия"><br>
+					<input type="radio" name="type" value="free" checked="true">Свободное 
+					<input type="radio" name="type" value="pay" id="open_license">Платное<br>
+					<div id="license">
+						<input type="text" name="l_name" placeholder="Название лицензии"><br>
+						Срок действия лицензии:<br>
+						<div class="license-date">
+							с: <input type="date" name="start_at"> 
+							<input type="checkbox" name="unlim" id="unlim">бессрочно<br>
+							<div id="unlim_on">
+								по: <input type="date" name="end_at">
+							</div>
+						</div>
+						<input type="text" name="doc_num"  placeholder="Номер договора"><br>
+						<div class="file-block">
+							Файл договора:<br>
+							<div class="custom-input">
+								<div class="form-group">
+								    <input type="file" name="doc_link" id="file" class="input-file">
+								    <label for="file" class="btn btn-tertiary js-labelFile">
+								      	<i class="icon fa fa-check"></i>
+								      	<span class="js-fileName">Загрузить файл</span>
+								    </label>
+								</div>
+							</div>
+						</div>
+					</div>
+			      	<input type="submit" name="add_software" value="Добавить ПО">
+			    </form>
+			  </div>
+			</div>
+		</div>
+	</body>
+</html>
