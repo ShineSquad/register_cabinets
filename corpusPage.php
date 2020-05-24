@@ -52,9 +52,9 @@
 			  <div class='right-block'>
 			    <form class='po-form' method="GET">
 			     	<p class='form-title'>Добавить учебный корпус</p>
-			     	<input type="text" name="name" placeholder="Номенклатурное название">
-					<input type="text" name="liter" placeholder="Литера">
-					<input type="text" name="adress" placeholder="Адрес">
+			     	<input type="text" required name="name" placeholder="Номенклатурное название">
+					<input type="text" required name="liter" placeholder="Литера">
+					<input type="text" required name="adress" placeholder="Адрес">
 					<input type="submit" name="add_corpus" value="Добавить корпус">
 			    </form>
 			  </div>

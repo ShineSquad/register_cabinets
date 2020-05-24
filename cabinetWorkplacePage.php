@@ -61,7 +61,7 @@
 			  <div class='right-block'>
 			    <form class='po-form' method="GET">
 			     	<p class='form-title'>Добавить рабочие места в кабинет</p>
-			     	<input type="number" name="inv_num" placeholder="Инвентарный номер"><br>
+			     	<input type="number" required name="inv_num" placeholder="Инвентарный номер"><br>
 					Кабинет
 					<select name="cabinet_id">
 						<?php

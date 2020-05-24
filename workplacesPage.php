@@ -67,7 +67,7 @@
 			  <div class='right-block'>
 			    <form class='po-form' method="GET">
 			     	<p class='form-title'>Создать компьютерное рабочее место</p>
-			     	<input type="text" name="name" placeholder="Название рабочего места"><br>
+			     	<input type="text" name="name" required placeholder="Название рабочего места"><br>
 					Установленное ПО:<br>
 					<?php
 						$sql = "SELECT * FROM software";

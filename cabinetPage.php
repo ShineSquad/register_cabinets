@@ -89,8 +89,8 @@
 			  <div class='right-block'>
 			    <form class='po-form' method="GET">
 			     	<p class='form-title'>Добавить кабинет</p>
-					<input type="text" name="name" placeholder="Номенклатурное название"><br>
-					<input type="number" name="number" placeholder="Номер"><br>
+					<input type="text" required name="name" placeholder="Номенклатурное название"><br>
+					<input type="number" required name="number" placeholder="Номер"><br>
 					Корпус
 					<select name="corpus_id">
 						<?php
@@ -109,8 +109,8 @@
 						<option value="1">Аудитория для проведения практических занятий</option>
 						<option value="2">Лаборатория</option>
 					</select><br>
-					<input type="number" name="sit_count" placeholder="Количество посадочных мест студентов"><br>
-					<input type="number" name="workplaces" placeholder="Количество рабочих мест студентов"><br>
+					<input type="number" required name="sit_count" placeholder="Количество посадочных мест студентов"><br>
+					<input type="number" required name="workplaces" placeholder="Количество рабочих мест студентов"><br>
 					<input type="checkbox" name="lector_wp">Наличие рабочего места преподавателя<br>
 					<input type="checkbox" name="whiteboard">Маркерная доска<br>
 					<input type="checkbox" name="proector">Проекционное оборудование<br>

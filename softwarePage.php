@@ -94,21 +94,21 @@
 			  <div class='right-block'>
 			    <form class='po-form' method="POST" enctype="multipart/form-data">
 			      	<p class='form-title'>Добавить программное обеспечение</p>
-			      	<input type="text" name="name" placeholder="Название ПО"><br>
-					<input type="text" name="ver" placeholder="Версия"><br>
-					<input type="radio" name="type" value="free" checked="true">Свободное 
-					<input type="radio" name="type" value="pay" id="open_license">Платное<br>
+			      	<input type="text" required name="name" placeholder="Название ПО"><br>
+					<input type="text" required name="ver" placeholder="Версия"><br>
+					<input type="radio" name="type" value="free" checked="true" onchange="changeRadio()">Свободное 
+					<input type="radio" name="type" value="pay" id="open_license" onchange="changeRadio()">Платное<br>
 					<div id="license">
-						<input type="text" name="l_name" placeholder="Название лицензии"><br>
+						<input type="text" name="l_name" placeholder="Название лицензии" class="changeattr"><br>
 						Срок действия лицензии:<br>
 						<div class="license-date">
-							с: <input type="date" name="start_at"> 
-							<input type="checkbox" name="unlim" id="unlim">бессрочно<br>
+							с: <input type="date" name="start_at" class="changeattr"> 
+							<input type="checkbox" name="unlim" id="unlim" checked onchange="changeCheck()">бессрочно<br>
 							<div id="unlim_on">
-								по: <input type="date" name="end_at">
+								по: <input type="date" name="end_at" class="changeCheck">
 							</div>
 						</div>
-						<input type="text" name="doc_num"  placeholder="Номер договора"><br>
+						<input type="text" name="doc_num" placeholder="Номер договора" class="changeattr"><br>
 						<div class="file-block">
 							Файл договора:<br>
 							<div class="custom-input">

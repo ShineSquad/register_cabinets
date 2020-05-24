@@ -45,7 +45,7 @@
 			  <div class='right-block'>
 			    <form class='po-form' method="GET">
 			      <p class='form-title'>Добавить учебный предмет</p>
-			      <input type='text' name="name" placeholder='Название дисциплины'>
+			      <input type='text' required name="name" placeholder='Название дисциплины'>
 			      <input type='submit' name="add_discipline" value='Добавить дисциплину'>
 			    </form>
 			  </div>
