@@ -67,6 +67,8 @@
 							$whiteboard = $row['whiteboard'];
 							$proector = $row['proector'];
 							$interactive = $row['interactive'];
+
+							$choise = ["×", "✓"];
 							echo "<tr>";
 								echo "<td>$id</td>";
 								echo "<td>$number</td>";
@@ -74,10 +76,10 @@
 								echo "<td>$sit_place</td>";
 								echo "<td>$workplaces</td>";
 								echo "<td>
-										<p>Рабочее место преподавателя: $lector_wp</p>
-										<p>Маркерная доска: $whiteboard</p>
-										<p>Проекционное оборудование: $proector</p>
-										<p>Интерактивная доска: $interactive</p>
+										<p>Рабочее место преподавателя: $choise[$lector_wp]</p>
+										<p>Маркерная доска: $choise[$whiteboard]</p>
+										<p>Проекционное оборудование: $choise[$proector]</p>
+										<p>Интерактивная доска: $choise[$interactive]</p>
 									  </td>";
 							echo "</tr>";
 					    }

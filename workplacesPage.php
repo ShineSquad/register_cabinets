@@ -48,7 +48,17 @@
 							$name = $row['name'];
 							echo "<tr>";
 								echo "<td>$id</td>";
-								echo "<td>$name</td>";;
+								echo "<td>$name</td>";
+								echo "<td>";
+									$sql = "SELECT software.name FROM workplace_software
+											LEFT JOIN software
+											ON software.id = workplace_software.software_id
+											WHERE workplace_software.workplace_id = $id";
+									$sub_res = mysqli_query($link, $sql);
+									while ($r = mysqli_fetch_assoc($sub_res)) {
+										echo $r["name"] . "<br>";
+									}
+								echo "</td>";
 							echo "</tr>";
 					    }
 					?>

@@ -5,7 +5,57 @@
 		<div id="app">
 			<?php require "components/header-report.htm";?>
 			<?php require "components/report.htm";?>
+			
 		</div>
+		<?php
+				require "debug/db_link.php";
+				$sql = "SELECT * FROM report";
+				$result = mysqli_query($link, $sql);
+				$current_ID = -1;
+				$cab_types = ["аудитория для проведения лекционных занятий", 
+							  "аудитория для проведения практических занятий", 
+							  "лаборатория"];
+				$choise = ["×", "✓"];
+
+				while ($row = mysqli_fetch_assoc($result)) {
+					
+					$d_ID = $row["discipline_id"];
+					if ($current_ID != $d_ID) {
+						$sql = "SELECT name FROM discipline WHERE id=$d_ID";
+						$res = mysqli_query($link, $sql);
+						$r = mysqli_fetch_assoc($res);
+						echo $r["name"] . "<br>";
+						$current_ID = $d_ID;
+						
+					}
+
+					$c_ID = $row["cabinet_id"];
+					$sql = "SELECT * FROM cabinets WHERE id=$c_ID";
+					$cres = mysqli_query($link, $sql);
+					
+					while ($r = mysqli_fetch_assoc($cres)) {
+						$corpus_id = $r["corpus_id"];
+						$sql = "SELECT liter FROM corpus WHERE id=$corpus_id";
+						$liter_res = mysqli_query($link, $sql);
+						$liter_r = mysqli_fetch_assoc($liter_res);
+						$liter = $liter_r["liter"];
+
+						$out1 = $r["name"] . " " . $cab_types[$r["type"]] . " " . $r["number"] . "$liter";
+						echo "<span style='padding-left: 15px'>" . $out1 . "</span><br>";
+
+						$out2 = "посадочных мест: " . $r["sit_place"] .
+								" рабочих мест: "    . $r["workplaces"];
+						echo "<span style='padding-left: 45px'>" . $out2 . "</span><br>";
+
+						$out3 = "доска: " . $choise[$r["whiteboard"]] . 
+								" место преподавателя: " . $choise[$r["lector_wp"]] . 
+								" проектор: " . $choise[$r["proector"]] . 
+								" интерактив: " . $choise[$r["interactive"]];
+
+						echo "<span style='padding-left: 45px'>" . $out3 . "</span><br>";
+					}	
+				}
+			?>
 	</body>
 </html>
 
