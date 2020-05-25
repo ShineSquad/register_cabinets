@@ -19,9 +19,6 @@
 			</form>
 			</div>
 		</div>
-		<?php
-
-			?>
 	</body>
 </html>
 
@@ -179,14 +176,14 @@
 		// echo "<hr>";
 		// printf("<pre>%s</pre>", print_r($data, true));
 
-		echo "<table>";
-		echo "<tr>
-			  	<th>№ п/п</th>
-			  	<th>Наименование дисциплины (модуля), практик в соответствии с учебным планом</th>
-			  	<th>Наименование специальных* помещений и помещений для самостоятельной работы</th>
-			  	<th>Оснащенность специальных помещений и помещений для самостоятельной работы</th>
-			  	<th>Перечень лицензионного программного обеспечения. Реквизиты подтверждающего документа</th>
-			  </tr>";
+		// echo "<table>";
+		// echo "<tr>
+		// 	  	<th>№ п/п</th>
+		// 	  	<th>Наименование дисциплины (модуля), практик в соответствии с учебным планом</th>
+		// 	  	<th>Наименование специальных* помещений и помещений для самостоятельной работы</th>
+		// 	  	<th>Оснащенность специальных помещений и помещений для самостоятельной работы</th>
+		// 	  	<th>Перечень лицензионного программного обеспечения. Реквизиты подтверждающего документа</th>
+		// 	  </tr>";
 		$counter = 1;
 		foreach ($data as $key => $value) {
 			$rowspan = count($value["cabinets"]);
@@ -194,10 +191,10 @@
 
 			$first = true;
 			foreach ($value["cabinets"] as $key => $val) {
-				echo "<tr>";
+				// echo "<tr>";
 					if ($first) {
-						echo "<td rowspan='$rowspan'>$counter</td>";
-						echo "<td rowspan='$rowspan'>$ds_name</td>";
+						// echo "<td rowspan='$rowspan'>$counter</td>";
+						// echo "<td rowspan='$rowspan'>$ds_name</td>";
 						$first = false;
 					}
 					$cab_name_out = $val["type"] . " " . $val["name"] . " " . $val["num"];
@@ -210,9 +207,9 @@
 
 					$software = implode("<br>", $val["sw"]);
 
-					echo "<td>$cab_name_out</td>
-						  <td>$cab_place_ct</td>
-						  <td>$software</td>";
+					// echo "<td>$cab_name_out</td>
+					// 	  <td>$cab_place_ct</td>
+					// 	  <td>$software</td>";
 					$table->addRow();
 					$table->addCell(3000, $cellVCentered) -> addText(
 						$counter, 
@@ -239,14 +236,25 @@
 						null, 
 						$cellHCentered
 					);
-				echo "</tr>";
+				// echo "</tr>";
 			}
 		}
-		echo "</table>";
+		// echo "</table>";
 		$counter++;
 		
+		// $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+		// $objWriter -> save('./documents/doc.docx');
 		$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-		$objWriter -> save('./documents/doc.docx');
+ 
+		header("Content-Description: File Transfer");
+		header('Content-Disposition: attachment; filename="Отчёт.docx"');
+		header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+		header('Content-Transfer-Encoding: binary');
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Expires: 0');
+		ob_clean();
+		$objWriter->save('php://output');
+		exit;
 
 		header('Location: ./reportPage.php');
 	}
