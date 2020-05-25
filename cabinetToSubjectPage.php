@@ -13,11 +13,11 @@
 				"discipline_id": "'.$dID.'",
 				"cabinet_id": "'.$value.'"
 			}';
-			echo $request;
+			//echo $request;
 			insert_into($link, "report", $request);
 		}
 
-		header("Location: cabinetToSubjectPage.php");
+		//header("Location: cabinetToSubjectPage.php");
 	}
 ?>
 
@@ -36,13 +36,12 @@
 			        	<td>Дисциплина</td>
 			      	</tr>
 			      	<?php
-						$sql = "SELECT * FROM corpus";
+						$sql = "SELECT * FROM report";
 						$result = mysqli_query($link, $sql);
 						while ($row = mysqli_fetch_assoc($result)) {
 							$id = $row['id'];
-							$name = $row['name'];
-							$liter = $row['liter'];
-							$adress = $row['adress'];
+							$name = $row['discipline_id'];
+							$liter = $row['cabinet_id'];
 							echo "<tr>";
 								echo "<td>$id</td>";
 								echo "<td>$name</td>";

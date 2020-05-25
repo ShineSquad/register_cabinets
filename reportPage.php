@@ -1,27 +1,3 @@
-<!DOCTYPE html>
-<html>
-	<?php require "components/head.htm";?>
-	<body>
-		<div id="app">
-			<?php require "components/header-report.htm";?>
-			<div class="main">
-				<form class='container-reports' id='reportsForm' method="post">
-				<select class='' name='subject' id='selectSubject'>
-					<option disabled selected>Предмет</option>
-				</select>
-				<select class='' name='cabinet' id='selectCabinet'>
-					<option disabled selected>Кабинет</option>
-				</select>
-				<select class='' name='software' id='selectSoftware'>
-					<option disabled selected>Программное обеспечение</option>
-				</select>
-				<input type='submit' value='Сформировать' name="report">
-			</form>
-			</div>
-		</div>
-	</body>
-</html>
-
 <?php
 	function createReport() {
 
@@ -252,14 +228,35 @@
 		header('Content-Transfer-Encoding: binary');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Expires: 0');
-		ob_clean();
+		//ob_clean();
 		$objWriter->save('php://output');
 		exit;
 
-		header('Location: ./reportPage.php');
+		//header('Location: ./reportPage.php');
 	}
 
 	if(array_key_exists('report',$_POST)){
 		createReport();
 	}
 ?>
+<?php require "components/head.htm";?>
+<body>
+	<div id="app">
+		<?php require "components/header-report.htm";?>
+		<div class="main">
+			<form class='container-reports' id='reportsForm' method="post">
+			<select class='' name='subject' id='selectSubject'>
+				<option disabled selected>Предмет</option>
+			</select>
+			<select class='' name='cabinet' id='selectCabinet'>
+				<option disabled selected>Кабинет</option>
+			</select>
+			<select class='' name='software' id='selectSoftware'>
+				<option disabled selected>Программное обеспечение</option>
+			</select>
+			<input type='submit' value='Сформировать' name="report">
+		</form>
+		</div>
+	</div>
+</body>
+

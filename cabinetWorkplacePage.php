@@ -17,11 +17,11 @@
 			$request = $base_request . '
 				"workplace_id": "'.$value.'"
 			}';
-			echo $request;
+			//echo $request;
 			insert_into($link, "cabinet_workplaces", $request);
 		}
 
-		header("Location: cabinetWorkplacePage.php");
+		//header("Location: cabinetWorkplacePage.php");
 	}
 ?>
 
