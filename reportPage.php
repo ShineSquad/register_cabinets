@@ -181,7 +181,7 @@
 									"\nинтерактивная доска: "         . $val["int"] .
 									"\nпроектор: "                    . $val["pro"];
 
-					// $software = implode("<br>", $val["sw"]);
+					$software = implode(", ", $val["sw"]);
 
 					// echo "<td>$cab_name_out</td>
 					// 	  <td>$cab_place_ct</td>
