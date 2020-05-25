@@ -9,12 +9,12 @@
 
 		$properties = $phpWord -> getDocInfo();
 
-		$properties->setCreator('My name');
-		$properties->setCompany('My factory');
-		$properties->setTitle('My title');
-		$properties->setDescription('My description');
+		$properties->setCreator('Niko');
+		$properties->setCompany('ShineSquad');
+		$properties->setTitle('Report');
+		$properties->setDescription('This is my report');
 		$properties->setCategory('My category');
-		$properties->setLastModifiedBy('My name');
+		$properties->setLastModifiedBy('Niko');
 		$properties->setCreated(mktime(0, 0, 0, 3, 12, 2014));
 		$properties->setModified(mktime(0, 0, 0, 3, 14, 2014));
 		$properties->setSubject('My subject');
@@ -222,13 +222,10 @@
 		// $objWriter -> save('./documents/doc.docx');
 		$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
  
-		header("Content-Description: File Transfer");
 		header('Content-Disposition: attachment; filename="Отчёт.docx"');
 		header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-		header('Content-Transfer-Encoding: binary');
-		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header('Expires: 0');
-		//ob_clean();
+		
+		ob_clean();
 		$objWriter->save('php://output');
 		exit;
 
