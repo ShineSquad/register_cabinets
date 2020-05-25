@@ -28,17 +28,27 @@
 							"аудитория для проведения практических занятий", 
 							"лаборатория"];
 				$choise = ["×", "✓"];
+				$data = array();
+				$counter = -1;	
+				$cab_counter = 0;
 
 				while ($row = mysqli_fetch_assoc($result)) {
-					
 					$d_ID = $row["discipline_id"];
 					if ($current_ID != $d_ID) {
+						$counter++;
+
 						$sql = "SELECT name FROM discipline WHERE id=$d_ID";
 						$res = mysqli_query($link, $sql);
 						$r = mysqli_fetch_assoc($res);
-						echo $r["name"] . "<br>";
+
 						$current_ID = $d_ID;
 						
+						$data[$counter]["discipline"] = array(
+							"id"   => $d_ID,
+							"name" => $r["name"]
+						);
+						$data[$counter]["cabinets"] = array();
+						$cab_counter = 0;
 					}
 
 					$c_ID = $row["cabinet_id"];
@@ -52,21 +62,82 @@
 						$liter_r = mysqli_fetch_assoc($liter_res);
 						$liter = $liter_r["liter"];
 
-						$out1 = $r["name"] . " " . $cab_types[$r["type"]] . " " . $r["number"] . "$liter";
-						echo "<span style='padding-left: 15px'>" . $out1 . "</span><br>";
+						$sql = "SELECT c.id AS 'cabinet_id', c.name AS 'cabinet_name', s.*, l.name AS 'l_name', l.doc_num
+								FROM software s
+								LEFT JOIN licenses l ON s.license_id = l.id
+								JOIN workplace_software ws ON ws.software_id = s.id
+								JOIN workplaces w ON w.id = ws.workplace_id
+								JOIN cabinet_workplaces cw ON cw.workplace_id = w.id
+								JOIN cabinets c ON c.id = cw.cabinet_id
+								WHERE c.id = ".$r['id']."
+								ORDER BY c.name";
+						$sw = array();
 
-						$out2 = "посадочных мест: " . $r["sit_place"] .
-								" рабочих мест: ". $r["workplaces"];
-						echo "<span style='padding-left: 45px'>" . $out2 . "</span><br>";
+						$cab_software = mysqli_query($link, $sql);
+						while ($cs = mysqli_fetch_assoc($cab_software)) {
+							$sw[] = $cs["name"];
+						}
 
-						$out3 = "доска: " . $choise[$r["whiteboard"]] . 
-								" место преподавателя: " . $choise[$r["lector_wp"]] . 
-								" проектор: " . $choise[$r["proector"]] . 
-								" интерактив: " . $choise[$r["interactive"]];
-
-						echo "<span style='padding-left: 45px'>" . $out3 . "</span><br>";
+						$data[$counter]["cabinets"][$cab_counter] = array(
+							"id"   => $r["id"],
+							"name" => $r["name"],
+							"type" => $cab_types[$r["type"]],
+							"num"  => $r["number"] . $liter,
+							"sit"  => $r["sit_place"],
+							"wp"   => $r["workplaces"],
+							"wb"   => $choise[$r["whiteboard"]],
+							"l_wp" => $choise[$r["lector_wp"]],
+							"pro"  => $choise[$r["proector"]],
+							"int"  => $choise[$r["interactive"]],
+							"sw"   => $sw
+						);
 					}	
+
+					$cab_counter++;
 				}
+
+				// echo "<hr>";
+				// printf("<pre>%s</pre>", print_r($data, true));
+
+				echo "<table>";
+				echo "<tr>
+					  	<th>№ п/п</th>
+					  	<th>Наименование дисциплины (модуля), практик в соответствии с учебным планом</th>
+					  	<th>Наименование специальных* помещений и помещений для самостоятельной работы</th>
+					  	<th>Оснащенность специальных помещений и помещений для самостоятельной работы</th>
+					  	<th>Перечень лицензионного программного обеспечения. Реквизиты подтверждающего документа</th>
+					  </tr>";
+				$counter = 1;
+				foreach ($data as $key => $value) {
+					$rowspan = count($value["cabinets"]);
+					$ds_name = $value["discipline"]["name"];
+
+					$first = true;
+					foreach ($value["cabinets"] as $key => $val) {
+						echo "<tr>";
+							if ($first) {
+								echo "<td rowspan='$rowspan'>$counter</td>";
+								echo "<td rowspan='$rowspan'>$ds_name</td>";
+								$first = false;
+							}
+							$cab_name_out = $val["type"] . " " . $val["name"] . " " . $val["num"];
+							$cab_place_ct = "посадочных мест: "                 . $val["sit"] . 
+											"<br>рабочих мест: "                . $val["wp"] .
+											"<br>маркерная доска: "             . $val["wb"] .
+											"<br>рабочее место преподавателя: " . $val["l_wp"] .
+											"<br>интерактивная доска: "         . $val["int"] .
+											"<br>проектор: "                    . $val["pro"];
+
+							$software = implode("<br>", $val["sw"]);
+
+							echo "<td>$cab_name_out</td>
+								  <td>$cab_place_ct</td>
+								  <td>$software</td>";
+						echo "</tr>";
+					}
+				}
+				echo "</table>";
+				$counter++;
 			?>
 	</body>
 </html>

@@ -3,7 +3,7 @@ function JSONtoTABLE($db_link, $JSONstr) {
 	$JSON = json_decode($JSONstr, true);
 	$name = $JSON["name"];
 
-	$sql = "CREATE TABLE $name(";
+	$sql = "CREATE TABLE IF NOT EXISTS $name (";
 	foreach ($JSON["columns"] as $key => $value) {
 		$sql .= "$key $value, ";
 	}
@@ -161,6 +161,25 @@ $tables[] = '{
 	}
 }';
 
+// $tables[] = '{
+// 	"name": "cabinet_software",
+// 	"columns": {
+// 		"id":         "INT AUTO_INCREMENT",
+// 		"cabinet_id": "INT NOT NULL",
+// 		"software_id":  "INT NOT NULL"
+// 	},
+// 	"primary_key": "id",
+// 	"foreign_keys": {
+// 		"0": {
+// 			"column": "cabinet_id",
+// 			"ref":    "cabinets(id)"
+// 		},
+// 		"1": {
+// 			"column": "software_id",
+// 			"ref":    "software(id)"
+// 		}
+// 	}
+// }';
 require "db_link.php";
 
 foreach ($tables as $key => $value) {
