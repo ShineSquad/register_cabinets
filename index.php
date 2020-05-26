@@ -1,3 +1,3 @@
 <?php
-  header('Location: ./softwarePage.php');
+  header('Location: ./page_01_software.php');
 ?>
