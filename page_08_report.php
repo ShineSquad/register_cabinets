@@ -12,10 +12,10 @@
 	<div id="app">
 		<?php $p=7; require "components/navigation.php";?>
 		<div class="main">
-			<?php require "components/page_08/table.php"?>
 			<form class='container-reports' id='reportsForm' method="POST">
 				<input type='submit' value='Сформировать' name="report">
 			</form>
+			<?php require "components/page_08/table.php"?>
 		</div>
 	</div>
 </body>

@@ -1,4 +1,4 @@
-<table>
+<table style="border-collapse: collapse;">
 	<?php
 		echo "<tr>
 			  	<th>№ п/п</th>
