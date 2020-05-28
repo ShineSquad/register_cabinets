@@ -18,6 +18,12 @@
 				echo "<td>$cabinet_id</td>";
 				echo "<td>$workplace_id</td>";
 				echo "<td>$invent_num</td>";
+				echo "<td>
+						<form method='GET'>
+							<input type='text' name='id' value='$id' style='display: none'>
+							<input type='submit' name='delete' value='Удалить'>
+						</form>
+					  </td>";
 			echo "</tr>";
 	    }
 	?>

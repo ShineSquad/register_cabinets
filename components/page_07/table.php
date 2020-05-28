@@ -15,6 +15,12 @@
 				echo "<td>$id</td>";
 				echo "<td>$name</td>";
 				echo "<td>$liter</td>";
+				echo "<td>
+						<form method='GET'>
+							<input type='text' name='id' value='$id' style='display: none'>
+							<input type='submit' name='delete' value='Удалить'>
+						</form>
+					  </td>";
 			echo "</tr>";
 	    }
 	?>
