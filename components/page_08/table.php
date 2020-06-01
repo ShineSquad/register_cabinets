@@ -6,6 +6,7 @@
 			  	<th>Наименование специальных* помещений и помещений для самостоятельной работы</th>
 			  	<th>Оснащенность специальных помещений и помещений для самостоятельной работы</th>
 			  	<th>Перечень лицензионного программного обеспечения. Реквизиты подтверждающего документа</th>
+			  	<th>Управление</th>
 			  </tr>";
 		$counter = 1;
 		foreach ($data as $key => $value) {
@@ -33,6 +34,12 @@
 					echo "<td>$cab_name_out</td>
 						  <td>$cab_place_ct</td>
 						  <td>$software</td>";
+					echo "<td>
+							<form method='GET'>
+								<input type='text' name='id' value='$counter' style='display: none'>
+								<input type='submit' name='delete' value='Удалить'>
+							</form>
+						  </td>";
 				echo "</tr>";
 			}
 			$counter++;

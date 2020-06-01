@@ -19,6 +19,7 @@
 		$result = mysqli_query($link, $sql);
 		while ($row = mysqli_fetch_assoc($result)) {
 			$id = $row['id'];
+
 			$name = $row['d_name'];
 			$liter = $row['cabinet_num'] . $row["corpus_liter"];
 

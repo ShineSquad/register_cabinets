@@ -1,7 +1,6 @@
 <?php
 	require "debug/sql_functions.php";
 	require "debug/db_link.php";
-
 	require "php/page_01/form_functions.php";
 ?>
 

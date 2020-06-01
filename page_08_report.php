@@ -1,7 +1,8 @@
 <?php
 	require "php/page_08/get_report_data.php";
 	$data = get_report_data();
-	
+	require "debug/db_link.php";
+	require "php/page_08/form_functions.php";
 	if(array_key_exists('report',$_POST)){
 		require "php/page_08/create_report.php";
 		createReport();

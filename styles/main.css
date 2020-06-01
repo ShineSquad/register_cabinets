@@ -17,6 +17,7 @@
   margin-left: 2.5%;
   margin-top: 10px;
   text-align: center;
+  border-spacing: 0px;
 }
 
 #app .main .left-block .po-table tr:first-child td {
@@ -26,6 +27,9 @@
 
 #app .main .left-block .po-table tr td {
   padding: 10px 0;
+}
+#app .main .left-block .po-table tr td:last-child {
+  padding: 0;
 }
 
 #app .main .right-block {

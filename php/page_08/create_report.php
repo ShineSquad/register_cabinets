@@ -69,7 +69,7 @@
 		array('bold' => true), 
 		$cellHCentered
 		);
-		$table->addCell(4000, $cellVCentered) -> addText(
+		$table->addCell(5000, $cellVCentered) -> addText(
 		'Оснащенность специальных помещений и помещений для самостоятельной работы', 
 		array('bold' => true), 
 		$cellHCentered
@@ -131,7 +131,7 @@
 						null, 
 						$cellHCentered
 					);
-					$table->addCell(4000) -> addText(
+					$table->addCell(5000) -> addText(
 						$cab_place_ct, 
 						null
 					);
