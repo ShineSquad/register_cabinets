@@ -10,7 +10,7 @@
 	<?php require "components/head.htm";?>
 	<body>
 		<div id="app">
-			<?php $p=4; require "components/navigation.php";?>
+			<?php $p=3; require "components/navigation.php";?>
 			<div class="main">
 			  <div class='left-block'>
 			    <?php require "components/page_05/table.php"?>
