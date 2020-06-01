@@ -217,3 +217,18 @@
 td, th {
   border: 1px solid black;
 }
+
+.rm_button {
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #FF9696;
+	color: white;
+	display: inline-block;
+	text-decoration: none;
+}
+.rm_button:hover {
+	color: white;
+	background-color: #FF4C4C;
+}

@@ -1,9 +1,10 @@
 <table border='1' class='po-table'>
   	<tr>
-    	<td>№</td>
+    	<td>id</td>
     	<td>Название</td>
     	<td>Литера</td>
     	<td>Адрес</td>
+    	<td>✘</td>
   	</tr>
   	<?php
 		$sql = "SELECT * FROM corpus";
@@ -13,12 +14,20 @@
 			$name = $row['name'];
 			$liter = $row['liter'];
 			$adress = $row['adress'];
-			echo "<tr>";
-				echo "<td>$id</td>";
-				echo "<td>$name</td>";
-				echo "<td>$liter</td>";
-				echo "<td>$adress</td>";
-			echo "</tr>";
+
+			$remove = "php/remove_row.php?id=$id&table=corpus";
+
+			$out = "<tr>
+						<td>$id</td>
+						<td>$name</td>
+						<td>$liter</td>
+						<td>$adress</td>
+						<td>
+							<a href='$remove' class='rm_button'>✘</a>
+						</td>
+					</tr>";
+
+			echo $out;
 	    }
 	?>
 </table>

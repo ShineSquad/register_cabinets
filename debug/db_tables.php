@@ -13,6 +13,9 @@ function JSONtoTABLE($db_link, $JSONstr) {
 	if (isset($JSON["foreign_keys"])) {
 		foreach ($JSON["foreign_keys"] as $key => $value) {
 			$sql .= ", FOREIGN KEY (" . $value["column"] . ") REFERENCES " . $value["ref"];
+			if (isset($value["options"])) {
+				$sql .= " " . $value["options"];
+			}
 		}
 	}
 
@@ -52,16 +55,17 @@ $tables[] = '{
 		"type":        "TEXT NOT NULL",
 		"sit_place":   "INT NOT NULL",
 		"workplaces":  "INT NOT NULL",
-		"lector_wp":   "BOOL NOT NULL",
-		"whiteboard":  "BOOL NOT NULL",
-		"proector":    "BOOL NOT NULL",
-		"interactive": "BOOL NOT NULL"
+		"lector_wp":   "BOOLEAN NOT NULL",
+		"whiteboard":  "BOOLEAN NOT NULL",
+		"proector":    "BOOLEAN NOT NULL",
+		"interactive": "BOOLEAN NOT NULL"
 	},
 	"primary_key": "id",
 	"foreign_keys": {
 		"0": {
 			"column": "corpus_id",
-			"ref":    "corpus(id)"
+			"ref":    "corpus(id)",
+			"options": "ON DELETE CASCADE"
 		}
 	}
 }';
@@ -85,11 +89,13 @@ $tables[] = '{
 	"foreign_keys": {
 		"0": {
 			"column": "cabinet_id",
-			"ref":    "cabinets(id)"
+			"ref":    "cabinets(id)",
+			"options": "ON DELETE CASCADE"
 		},
 		"1": {
 			"column": "workplace_id",
-			"ref":    "workplaces(id)"
+			"ref":    "workplaces(id)",
+			"options": "ON DELETE CASCADE"
 		}
 	}
 }';
@@ -118,7 +124,8 @@ $tables[] = '{
 	"foreign_keys": {
 		"0": {
 			"column": "license_id",
-			"ref":    "licenses(id)"
+			"ref":    "licenses(id)",
+			"options": "ON DELETE CASCADE"
 		}
 	}
 }';
@@ -133,11 +140,13 @@ $tables[] = '{
 	"foreign_keys": {
 		"0": {
 			"column": "workplace_id",
-			"ref":    "workplaces(id)"
+			"ref":    "workplaces(id)",
+			"options": "ON DELETE CASCADE"
 		},
 		"1": {
 			"column": "software_id",
-			"ref":    "software(id)"
+			"ref":    "software(id)",
+			"options": "ON DELETE CASCADE"
 		}
 	}
 }';
@@ -152,11 +161,13 @@ $tables[] = '{
 	"foreign_keys": {
 		"0": {
 			"column": "cabinet_id",
-			"ref":    "cabinets(id)"
+			"ref":    "cabinets(id)",
+			"options": "ON DELETE CASCADE"
 		},
 		"1": {
 			"column": "discipline_id",
-			"ref":    "discipline(id)"
+			"ref":    "discipline(id)",
+			"options": "ON DELETE CASCADE"
 		}
 	}
 }';
@@ -164,19 +175,21 @@ $tables[] = '{
 // $tables[] = '{
 // 	"name": "cabinet_software",
 // 	"columns": {
-// 		"id":         "INT AUTO_INCREMENT",
-// 		"cabinet_id": "INT NOT NULL",
+// 		"id":           "INT AUTO_INCREMENT",
+// 		"cabinet_id":   "INT NOT NULL",
 // 		"software_id":  "INT NOT NULL"
 // 	},
 // 	"primary_key": "id",
 // 	"foreign_keys": {
 // 		"0": {
 // 			"column": "cabinet_id",
-// 			"ref":    "cabinets(id)"
+// 			"ref":    "cabinets(id)",
+// 			"options": "ON DELETE CASCADE"
 // 		},
 // 		"1": {
 // 			"column": "software_id",
-// 			"ref":    "software(id)"
+// 			"ref":    "software(id)",
+// 			"options": "ON DELETE CASCADE"
 // 		}
 // 	}
 // }';

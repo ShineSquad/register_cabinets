@@ -1,7 +1,8 @@
 <table border='1' class='po-table'>
   	<tr>
-    	<td>№</td>
+    	<td>id</td>
     	<td>Название</td>
+    	<td>✘</td>
   	</tr>
   	<?php
 		$sql = "SELECT * FROM discipline";
@@ -9,10 +10,18 @@
 		while ($row = mysqli_fetch_assoc($result)) {
 			$id = $row['id'];
 			$name = $row['name'];
-			echo "<tr>";
-				echo "<td>$id</td>";
-				echo "<td>$name</td>";
-			echo "</tr>";
+
+			$remove = "php/remove_row.php?id=$id&table=discipline";
+
+			$out = "<tr>
+						<td>$id</td>
+						<td>$name</td>
+						<td>
+							<a href='$remove' class='rm_button'>✘</a>
+						</td>
+					</tr>";
+
+			echo $out;
 	    }
 	?>
 </table>
